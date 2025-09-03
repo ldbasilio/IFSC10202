@@ -1,4 +1,4 @@
-print ("Please enter the # of students for 3 different classrooms :)")
+print ("Please enter the # of students for 3 different classrooms :)\n")
 
 desk = int(2)
 
