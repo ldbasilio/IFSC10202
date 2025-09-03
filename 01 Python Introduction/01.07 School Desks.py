@@ -22,6 +22,6 @@ if classC % desk != 0:
     classC += 1
 roomC = classC // desk
 
-total = roomA+roomB+roomC
+total = roomA + roomB + roomC
 
 print (f"You will need {total} desks minimum for every student.")
