@@ -1,6 +1,6 @@
 print ("""Welcome to IFSC Project 1 - Length of Time\n
 This coding program will tell you how many years, days, hours, minutes, and seconds
-are in a certain number of seconds, prompted to be entered by you.\n""")
+are in a certain number of seconds, after being entered by you.\n""")
 
 a = int(input("Enter the Length of Time in Seconds: "))
 

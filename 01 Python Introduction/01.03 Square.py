@@ -4,3 +4,5 @@ x = float(x)
 final = x * x
 
 print(final)
+
+'''number = float(input("What number will be squared: "))'''
