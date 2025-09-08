@@ -45,39 +45,19 @@ x = 7 / 2
 y = ceil(x)
 print(y)
 
-'''Here is the description for some of the function in the math module:
-
-floor(x)
-- Return the floor of x, the largest integer less than or equal to x.
-
-ceil(x)
-- Returns the ceiling of x, the smallest integer greater than or equal to x.
-
-sqrt(x)
-- Returns the square root of x
-
-log(x)
-- With one argument, return the natural logarithm of x (to base e). With two arguments, return the logarithm of x to the given base.
-
-e
-- The mathematical constant e = 2,71828...
-
-sin(x)
-- Return the sine of x radians
-
-asin(x)
-- Return the arcsine of x, in radians
-
-pi
-- The mathematical constant π = 3.1415...'''
+# Here is the description for some of the functions in the math module:
+# floor(x) - Return the floor of x, the largest integer less than or equal to x.
+# ceil(x) - Returns the ceiling of x, the smallest integer greater than or equal to x.
+# sqrt(x) - Returns the square root of x
+# log(x) - With one argument, return the natural logarithm of x (to base e). With two arguments, return the logarithm of x to the given base.
+# e - The mathematical constant e = 2,71828...
+# sin(x) - Return the sine of x radians
+# asin(x) - Return the arcsine of x, in radians
+# pi - The mathematical constant π = 3.1415...'''
 
 # We have printed the default format for values. This can be a problem if we want to print several columns of values, 
 # since they can vary in length. We can use the .format() method to format values. The general sytax of the .format() method 
-# is:
-"{f1}{f2}{f3}".format(variable1, variable2, variable3) 
-
-'''where, 
-{f1} is the formatting string for variable1
-{f2} is the formatting string for variable2
-{f3} is the formatting string for variable3
-We will go into greater detail about the formatting values at the end of this chapter''' 
+# is: 
+# {f1}{f2}{f3}".format(variable1, variable2, variable3), 
+# where {f1} is the formatting string for variable1, {f2} is the formatting string for variable2, 
+# {f3} is the formatting string for variable3. We will go into greater detail about the formatting values at the end of this chapter
