@@ -1,3 +1,4 @@
+# We already know the following operators that may be applied to numbers: +, -, * and **.
 # The division operator / for integers gives a floating-point real number (an object of type float). 
 # The exponentiation ** also returns a float when the power is negative:
 print(17 / 3)       # gives 5.66666666667
