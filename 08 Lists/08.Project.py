@@ -30,3 +30,42 @@ Line 314:
 Enter search term:
 """
 
+print ("\nConstitution Search Program\n")
+
+constitution = []
+const_file = open("constitution.txt", "r")
+line = const_file.readline()
+
+while line != "":
+    line = line.rstrip("\n")
+    constitution.append(line)
+    line = const_file.readline()
+
+const_file.close()
+
+search = input("Enter search term: ")
+
+while search != "":
+    index = 0
+    while index < len(constitution):
+        current_line = constitution[index]
+        if search.lower() in current_line.lower():
+            top = index
+            while top > 0 and constitution[top] != "":
+                top = top - 1
+            bottom = index
+            while bottom < len(constitution) - 1 and constitution[bottom] != "":
+                bottom = bottom + 1
+            for i in range(top, bottom + 1):
+                if constitution[i] == "":
+                    print ("Line " + str(i + 1) + ":")
+                else:
+                    print ("Line " + str(i + 1) + ":", constitution[i])
+            print ()
+            index = bottom + 1
+        else:
+            index = index + 1
+
+    print ()
+
+    search = input("Enter search term: ")
