@@ -63,11 +63,9 @@ def ParseDegreeString(ddmmss):
 
     return degrees, minutes, seconds
 
-
 def DDMMStoDecimal(degrees, minutes, seconds):
     decimal = degrees + (minutes / 60.0) + (seconds / 3600.0)
     return decimal
-
 
 print ("\nAngles Conversion Program\n")
 
