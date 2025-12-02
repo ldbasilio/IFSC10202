@@ -49,6 +49,7 @@ B
 D
 """
 
+
 class Student():
 
     def __init__(self, firstname, lastname, tnumber, scores):
@@ -115,13 +116,17 @@ while line != "":
 
     if line != "":
         parts = line.split(",")
+
         first = parts[0].strip()
         last = parts[1].strip()
         tnum = parts[2].strip()
+
         scores = []
         for p in parts[3:]:
             scores.append(p.strip())
+
         student = Student(first, last, tnum, scores)
+
         run_avg = student.RunningAverage()
         sem_avg = student.TotalAverage()
         grade = student.LetterGrade()
@@ -133,5 +138,7 @@ while line != "":
             run_avg,
             sem_avg,
             grade))
+
     line = infile.readline()
+
 infile.close()
