@@ -45,3 +45,60 @@ Enter To City: Houston
 Chicago to Houston - 1092 miles
 """
 
+print ("\nCity Distance Program\n")
+
+# Read CSV file into a two dimensional list
+filename = "09.Project Distances.csv"
+distances = []
+
+infile = open(filename, "r")
+
+line = infile.readline()
+while line != "":
+    line = line.strip()
+    row = line.split(",")
+    distances.append(row)
+    line = infile.readline()
+
+infile.close()
+
+# Print the distance table
+print ("Distance Table\n")
+
+for i in range(len(distances)):
+    for j in range(len(distances[i])):
+        print ("{:>10}".format(distances[i][j]), end = "")
+    print ()
+
+print ()
+
+# Prompt user for cities and look up distances
+from_city = input("Enter From City (blank to exit): ")
+
+while from_city != "":
+    to_city = input("Enter To City: ")
+
+    from_index = -1
+    to_index = -1
+
+    # Find row for From City (search first column)
+    for i in range(1, len(distances)):
+        if distances[i][0].lower() == from_city.lower():
+            from_index = i
+
+    # Find column for To City (search first row)
+    for j in range(1, len(distances[0])):
+        if distances[0][j].lower() == to_city.lower():
+            to_index = j
+
+    if from_index == -1:
+        print ("Invalid From City")
+    if to_index == -1:
+        print ("Invalid To City")
+
+    if from_index != -1 and to_index != -1:
+        distance = distances[from_index][to_index]
+        print (from_city, "to", to_city, "=", distance, "miles")
+
+    print ()
+    from_city = input("Enter From City (blank to exit): ")
