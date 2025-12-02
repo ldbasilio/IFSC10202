@@ -103,12 +103,10 @@ class Student():
 
 print ("\nStudent Scores Program\n")
 
-# Print header
-print ("{:>10s}{:>10s}{:>12s}{:>16s}{:>16s}{:>8s}".format(
+print ("{:>10s}{:>10s}{:>12s}{:>14s}{:>16s}{:>8s}".format(
     "First", "Last", "TNumber", "Running Avg", "Semester Avg", "Grade"))
-print ("-" * 72)
+print ("-" * 70)
 
-# Open the student scores file
 infile = open("10.Project Student Scores.txt", "r")
 
 line = infile.readline()
@@ -117,29 +115,23 @@ while line != "":
 
     if line != "":
         parts = line.split(",")
-
         first = parts[0].strip()
         last = parts[1].strip()
         tnum = parts[2].strip()
-
         scores = []
-        for i in range(3, len(parts)):
-            scores.append(parts[i].strip())
-
+        for p in parts[3:]:
+            scores.append(p.strip())
         student = Student(first, last, tnum, scores)
-
         run_avg = student.RunningAverage()
         sem_avg = student.TotalAverage()
         grade = student.LetterGrade()
 
-        print ("{:>10s}{:>10s}{:>12s}{:16.2f}{:16.2f}{:>8s}".format(
+        print ("{:>10s}{:>10s}{:>12s}{:14.2f}{:16.2f}{:>8s}".format(
             student.FirstName,
             student.LastName,
             student.TNumber,
             run_avg,
             sem_avg,
             grade))
-
     line = infile.readline()
-
 infile.close()
