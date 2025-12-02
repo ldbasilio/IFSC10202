@@ -48,3 +48,98 @@ B
     Jane        Doe        T121212  99.50        66.33
 D
 """
+
+class Student():
+
+    def __init__(self, firstname, lastname, tnumber, scores):
+        self.FirstName = firstname
+        self.LastName = lastname
+        self.TNumber = tnumber
+        self.Grades = scores
+
+    def RunningAverage(self):
+        total = 0.0
+        count = 0
+
+        for g in self.Grades:
+            if g.strip() != "":
+                total += float(g)
+                count += 1
+
+        if count == 0:
+            return 0.0
+
+        return total / count
+
+    def TotalAverage(self):
+        if len(self.Grades) == 0:
+            return 0.0
+
+        total = 0.0
+
+        for g in self.Grades:
+            if g.strip() == "":
+                value = 0.0
+            else:
+                value = float(g)
+            total += value
+
+        return total / len(self.Grades)
+
+    def LetterGrade(self):
+        avg = self.TotalAverage()
+
+        if avg >= 90:
+            return "A"
+        elif avg >= 80:
+            return "B"
+        elif avg >= 70:
+            return "C"
+        elif avg >= 60:
+            return "D"
+        else:
+            return "F"
+
+
+print ("\nStudent Scores Program\n")
+
+# Print header
+print ("{:>10s}{:>10s}{:>12s}{:>16s}{:>16s}{:>8s}".format(
+    "First", "Last", "TNumber", "Running Avg", "Semester Avg", "Grade"))
+print ("-" * 72)
+
+# Open the student scores file
+infile = open("10.Project Student Scores.txt", "r")
+
+line = infile.readline()
+while line != "":
+    line = line.strip()
+
+    if line != "":
+        parts = line.split(",")
+
+        first = parts[0].strip()
+        last = parts[1].strip()
+        tnum = parts[2].strip()
+
+        scores = []
+        for i in range(3, len(parts)):
+            scores.append(parts[i].strip())
+
+        student = Student(first, last, tnum, scores)
+
+        run_avg = student.RunningAverage()
+        sem_avg = student.TotalAverage()
+        grade = student.LetterGrade()
+
+        print ("{:>10s}{:>10s}{:>12s}{:16.2f}{:16.2f}{:>8s}".format(
+            student.FirstName,
+            student.LastName,
+            student.TNumber,
+            run_avg,
+            sem_avg,
+            grade))
+
+    line = infile.readline()
+
+infile.close()
