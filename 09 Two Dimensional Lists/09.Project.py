@@ -12,9 +12,7 @@
     - If the From City was not found, then display "Invalid From City".
     - If the To City was not found, then display "Invalid To City".
     - If both cities where found, display the From City, To City, and the Distance.
-"""
 
-"""
 # Copy, paste and save the file below as 09.Project Distances.csv
 
 Cities,Boston,Buffalo,Chicago,Cleveland,Dallas,Denver,Detroit,El Paso,Houston
