@@ -272,3 +272,238 @@ Enter Selection: Q
 Good-bye
 
 """
+
+class Employee():
+    def __init__(self, number, firstname, lastname, address, city, state, zipcode):
+        self.EmployeeNumber = int(number)
+        self.FirstName = firstname
+        self.LastName = lastname
+        self.Address = address
+        self.City = city
+        self.State = state
+        self.Zip = zipcode
+
+
+class EmployeeList():
+    def __init__(self, filename):
+        self.EmployeeList = []
+        self.FileName = filename
+    def ReadEmployeeFile(self):
+        infile = open(self.FileName, "r")
+        line = infile.readline()
+        while line != "":
+            line = line.strip()
+            if line != "":
+                parts = line.split(",")
+                if len(parts) >= 7:
+                    number = parts[0].strip()
+                    firstname = parts[1].strip()
+                    lastname = parts[2].strip()
+                    address = parts[3].strip()
+                    city = parts[4].strip()
+                    state = parts[5].strip()
+                    zipcode = parts[6].strip()
+
+                    employee = Employee(number, firstname, lastname, address, city, state, zipcode)
+                    self.EmployeeList.append(employee)
+            line = infile.readline()
+        infile.close()
+
+    def WriteEmployeeFile(self):
+        outfile = open(self.FileName, "w")
+        for emp in self.EmployeeList:
+            line = str(emp.EmployeeNumber) + ", " + emp.FirstName + ", " + emp.LastName + ", " + emp.Address + ", " + emp.City + ", " + emp.State + ", " + emp.Zip + "\n"
+            outfile.write(line)
+        outfile.close()
+
+    def DisplayEmployeeList(self):
+        print ("")
+        print ("Employee         First           Last            Address         City            State           Zip            ")
+        print ("Number           Name            Name           ")
+        print ("--------------- --------------- --------------- --------------- --------------- --------------- ---------------")
+
+        for emp in self.EmployeeList:
+            print ("{:15d}{:15s}{:15s}{:15s}{:15s}{:15s}{:15s}".format(
+                emp.EmployeeNumber,
+                emp.FirstName,
+                emp.LastName,
+                emp.Address,
+                emp.City,
+                emp.State,
+                emp.Zip))
+        print ("")
+
+    def FindEmployee(self, employeenumber):
+        for i in range(len(self.EmployeeList)):
+            if self.EmployeeList[i].EmployeeNumber == employeenumber:
+                return i
+        return -1
+
+    def ReadEmployee(self, employeenumber):
+        index = self.FindEmployee(employeenumber)
+        if index == -1:
+            return None, None, None, None, None, None, None
+        emp = self.EmployeeList[index]
+        return emp.EmployeeNumber, emp.FirstName, emp.LastName, emp.Address, emp.City, emp.State, emp.Zip
+
+    def NextEmployeeNumber(self):
+        if len(self.EmployeeList) == 0:
+            return 1
+        last_emp = self.EmployeeList[-1]
+        return last_emp.EmployeeNumber + 1
+
+    def AddEmployee(self, firstname, lastname, address, city, state, zipcode):
+        new_number = self.NextEmployeeNumber()
+        emp = Employee(new_number, firstname, lastname, address, city, state, zipcode)
+        self.EmployeeList.append(emp)
+
+    def UpdateEmployee(self, employeenumber, firstname, lastname, address, city, state, zipcode):
+        index = self.FindEmployee(employeenumber)
+        if index != -1:
+            emp = self.EmployeeList[index]
+            emp.FirstName = firstname
+            emp.LastName = lastname
+            emp.Address = address
+            emp.City = city
+            emp.State = state
+            emp.Zip = zipcode
+
+    def DeleteEmployee(self, employeenumber):
+        index = self.FindEmployee(employeenumber)
+        if index != -1:
+            del self.EmployeeList[index]
+            return True
+        else:
+            return False
+
+def get_required(prompt):
+    value = input(prompt)
+    while value.strip() == "":
+        print ("Value is required.")
+        value = input(prompt)
+    return value.strip()
+
+def get_state(prompt):
+    value = input(prompt)
+    value = value.strip().upper()
+    while not (len(value) == 2 and value.isalpha()):
+        print ("State must be 2 upper case letters.")
+        value = input(prompt)
+        value = value.strip().upper()
+    return value
+
+def get_zip(prompt):
+    value = input(prompt)
+    value = value.strip()
+    while not (len(value) == 5 and value.isdigit()):
+        print ("Zip must be 5 numeric digits.")
+        value = input(prompt)
+        value = value.strip()
+    return value
+
+def get_int(prompt):
+    value = input(prompt)
+    while True:
+        try:
+            num = int(value)
+            return num
+        except:
+            print ("Employee Number must be an integer.")
+            value = input(prompt)
+
+
+print ("\nEmployee List Program\n")
+
+employees = EmployeeList("Final Project Employees.txt")
+employees.ReadEmployeeFile()
+
+selection = ""
+
+while selection != "Q":
+    print ("(A)dd a New Employee")
+    print ("(D)elete an Existing Employee")
+    print ("(C)hange an Existing Employee")
+    print ("(P)rint All Employees")
+    print ("(S)ave Changes to File")
+    print ("(Q)uit")
+    print ("")
+    selection = input("Enter Selection: ")
+    selection = selection.strip().upper()
+    print ("")
+    if selection == "A":
+        first = get_required("Enter First Name: ")
+        last = get_required("Enter Last Name: ")
+        address = get_required("Enter Address: ")
+        city = get_required("Enter City: ")
+        state = get_state("Enter State: ")
+        zipcode = get_zip("Enter Zip: ")
+        employees.AddEmployee(first, last, address, city, state, zipcode)
+        print ("Employee Added")
+        print ("")
+    elif selection == "D":
+        empnum = get_int("Enter Employee Number: ")
+        deleted = employees.DeleteEmployee(empnum)
+        if deleted:
+            print ("Employee Deleted")
+        else:
+            print ("Employee not found")
+        print ("")
+    elif selection == "C":
+        empnum = get_int("Enter Employee Number: ")
+        print ("")
+        index = employees.FindEmployee(empnum)
+        if index == -1:
+            print ("Employee not found")
+            print ("")
+        else:
+            change_selection = ""
+            while change_selection != "B":
+                print ("(F)irst Name")
+                print ("(L)Last Name")
+                print ("(A)ddress")
+                print ("(C)ity")
+                print ("(S)tate")
+                print ("(Z)ip")
+                print ("(B)ack to Main Menu")
+                print ("")
+                change_selection = input("Enter Selection: ")
+                change_selection = change_selection.strip().upper()
+                print ("")
+                number, first, last, address, city, state, zipcode = employees.ReadEmployee(empnum)
+                if change_selection == "F":
+                    first = get_required("Enter First Name: ")
+                    employees.UpdateEmployee(empnum, first, last, address, city, state, zipcode)
+                    print ("")
+                elif change_selection == "L":
+                    last = get_required("Enter Last Name: ")
+                    employees.UpdateEmployee(empnum, first, last, address, city, state, zipcode)
+                    print ("")
+                elif change_selection == "A":
+                    address = get_required("Enter Address: ")
+                    employees.UpdateEmployee(empnum, first, last, address, city, state, zipcode)
+                    print ("")
+                elif change_selection == "C":
+                    city = get_required("Enter City: ")
+                    employees.UpdateEmployee(empnum, first, last, address, city, state, zipcode)
+                    print ("")
+                elif change_selection == "S":
+                    state = get_state("Enter State: ")
+                    employees.UpdateEmployee(empnum, first, last, address, city, state, zipcode)
+                    print ("")
+                elif change_selection == "Z":
+                    zipcode = get_zip("Enter Zip: ")
+                    employees.UpdateEmployee(empnum, first, last, address, city, state, zipcode)
+                    print ("")
+    elif selection == "P":
+        employees.DisplayEmployeeList()
+    elif selection == "S":
+        employees.WriteEmployeeFile()
+        print ("Changes saved to file.")
+        print ("")
+    elif selection == "Q":
+        print ("Good-bye")
+        print ("")
+    else:
+        if selection != "":
+            print ("Invalid selection.")
+            print ("")
